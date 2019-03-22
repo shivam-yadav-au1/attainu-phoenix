@@ -9,4 +9,4 @@ const odd = function(number){
     }
 }
 
-console.log("Number 5 odd :"+odd(5))
+// console.log("Number 5 odd :"+odd(5))

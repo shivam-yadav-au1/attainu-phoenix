@@ -7,4 +7,4 @@ const even = function(number){
     }
 }
 
-console.log("Number 5 even : "+even(5))
+// console.log("Number 5 even : "+even(5))
