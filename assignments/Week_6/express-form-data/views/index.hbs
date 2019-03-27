@@ -18,11 +18,23 @@
                 <h1>Tennis Player App</h1>
                 <hr>
                 <p>Welcome {{userName}}</p>
-                <ol>
-                    {{#each players}}
-                    <li>{{this.name}} {{this.country}}</li>
-                    {{/each}}
-                </ol>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">Players Name</th>
+                            <th scope="col">Players Country</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each players}}
+                        <tr>
+                            <td>{{this.name}}</td>
+                            <td>{{this.country}}</td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+             
                 <p></p>
                 <form action="/players" method="POST">
                     <label for="">
