@@ -22,7 +22,7 @@ var readFile = function (fileName, callBackFun) {
             console.log("Could not read file");
         }
         // console.log(data.toString())
-        Books.push(data.toString())
+        Books.push(data)
         callBackFun(Books);
     });   
 }
