@@ -1,23 +1,24 @@
-'use strict'
+'use strict';
 var fs = require("fs");
-var mongodb = require("mongodb");
+var mongodb = require("mongodb")
 
 var DB;
+var Books;
 
-
-var fileWriterCallback = function(data){
-
-    fs.writeFile("books.json", data, function (err) {
+var readFile = function (fileName, callBackFun) {
+    console.log("File Reading started ....")
+    fs.readFile(fileName, function (err, data) {
         if (err) {
-            console.log("Error while Writing File ...")
-            return;
+            console.log("Could not read file");
         }
-        console.log('File Written Successfully !');
-    })
+        Books = JSON.parse(data)
 
+        callBackFun(Books);
+    });
 }
-var getBooksFromDB = function (fileWriterCallback) {
-    
+
+var putDataIntoDb = function (books) {
+    console.log("Books length :"+books.length)
     var mongoClient = new mongodb.MongoClient("mongodb://localhost:27017/library", { useNewUrlParser: true });
     mongoClient.connect(function (error) {
         if (error) {
@@ -25,16 +26,15 @@ var getBooksFromDB = function (fileWriterCallback) {
         } else {
             console.log("DB connection established.");
             DB = mongoClient.db("library");
-            DB.collection("books").find({}).toArray(function(error,data){
-                if(error){
-                    console.log("Error whiel fetching data from database.")
+            DB.collection("books").insertMany(books, function (error, result) {
+                if (error) {
+                    console.log("Failed to Store Books in DataBase.")
                     return;
                 }
-                // console.log(JSON.stringify(data))
-                fileWriterCallback(JSON.stringify(data))
+                console.log("Books inserted ..Books Size :" + books.length)
             });
         }
     });
 }
 
-getBooksFromDB(fileWriterCallback);
+readFile("books.json", putDataIntoDb);

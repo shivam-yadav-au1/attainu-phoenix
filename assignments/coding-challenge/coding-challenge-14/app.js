@@ -1,49 +1,36 @@
-'use script'
-
 var express = require('express')
-var bodyParser = require("body-parser")
+var bodyParser = require('body-parser')
 
 var app = express()
-
 app.set("view engine","hbs")
 
 app.use(bodyParser.urlencoded({extended:false}))
 app.use(bodyParser.json())
 app.use(express.static('public'))
 
-var userDB = [
-    {name: "ansal", password: "ansal123"},
-    {name: "vaibhav", password: "vaibhav123"},
-    {name: "divyam", password: "divyam123"}
-  ];
+var CONTACTS =[]
+app.get("/",function(request,response){
 
-  app.get("/",function(request,response){
-      response.render("index.hbs")
-  })
+    console.log("Route executed....")
 
+    response.render("index.hbs")
+})
 
-  app.post("/login",function(request,response){
+app.get("/contacts",function(request,response){
+    console.log("route executed...")
+    response.json(CONTACTS)
+})
 
-    console.log("/login route execueted ....")
+app.post("/contacts",function(request,response){
+    console.log("contacts route executed...")
 
     var data = {
         name:request.body.name,
-        password:request.body.password
+        phoneNumber:request.body.phoneNumber
     }
+    console.log(data)
+    CONTACTS.push(data);
+    response.json(data);
+})
 
-    for(var i =0;i<userDB.length;i++){
-
-        if(userDB[i].name == data.name && userDB[i].password == data.password){
-            console.log("Matched ....")
-            response.send("Success")
-            return;
-        }
-        
-    }
-    console.log("Failed ...")
-    response.send("Failed")
-
-
-  })
-
-  app.listen(3000);
+app.listen(3000)

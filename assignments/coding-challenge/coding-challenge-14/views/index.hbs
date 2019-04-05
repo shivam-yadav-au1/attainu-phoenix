@@ -5,33 +5,40 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Login</title>
+    <title>Contact Us</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
         crossorigin="anonymous">
-    <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
-    <h3 class="errorMessage" id="error">Login Failed !!!</h3>
-    <h3 class="successMessage" id="success">Login Successfull !!! </h3>
-    <div class="contaier-fluid" style="margin-top:5%">
-        <div class="col-md-4 offset-md-5">
+   <div class="container-fluid">
+       <div class="col-md-4 offset-md-4">
+           <h1>Contact Us</h1>
+           <hr>
+           <label for="">
+               Name :<input class="form-control" type="text" name="name" id="name">
+           </label>
+           <label for="">
+               Phone Number:<input class="form-control" type="number" name="phoneNumber" id="phoneNumber">
+           </label>
+           <p><hr></p>
+           <button class="btn btn-success" id="btnSubmit">Submit</button>
+           <hr>
+           <table class="table table-striped">
+               <thead>
+                   <tr>
+                       <th>Name</th>
+                       <th>Phone Number</th>
+                   </tr>
+               </thead>
+               <tbody id="tbody">
 
+               </tbody>
 
-            <label for="name">
-                Name
-                <input class="form-control" type="text" name="name" id="name">
-
-            </label>
-            <label for="password">
-                Password
-                <input class="form-control" type="password" name="password" id="password">
-            </label>
-            <p></p>
-            <button class="btn btn-success" id="loginButton">Login</button>
-        </div>
-    </div>
-    <script src="js/script.js"></script>
+           </table>
+       </div>
+   </div>
+   <script src="javascript/script.js"></script>
 </body>
 
 </html>

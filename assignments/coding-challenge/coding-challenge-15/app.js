@@ -1,40 +1,49 @@
-'use strict';
-var fs = require("fs");
-var mongodb = require("mongodb")
+'use script'
 
-var DB;
-var Books;
+var express = require('express')
+var bodyParser = require("body-parser")
 
-var readFile = function (fileName, callBackFun) {
-    console.log("File Reading started ....")
-    fs.readFile(fileName, function (err, data) {
-        if (err) {
-            console.log("Could not read file");
+var app = express()
+
+app.set("view engine","hbs")
+
+app.use(bodyParser.urlencoded({extended:false}))
+app.use(bodyParser.json())
+app.use(express.static('public'))
+
+var userDB = [
+    {name: "ansal", password: "ansal123"},
+    {name: "vaibhav", password: "vaibhav123"},
+    {name: "divyam", password: "divyam123"}
+  ];
+
+  app.get("/",function(request,response){
+      response.render("index.hbs")
+  })
+
+
+  app.post("/login",function(request,response){
+
+    console.log("/login route execueted ....")
+
+    var data = {
+        name:request.body.name,
+        password:request.body.password
+    }
+
+    for(var i =0;i<userDB.length;i++){
+
+        if(userDB[i].name == data.name && userDB[i].password == data.password){
+            console.log("Matched ....")
+            response.send("Success")
+            return;
         }
-        Books = JSON.parse(data)
+        
+    }
+    console.log("Failed ...")
+    response.send("Failed")
 
-        callBackFun(Books);
-    });
-}
 
-var putDataIntoDb = function (books) {
-    console.log("Books length :"+books.length)
-    var mongoClient = new mongodb.MongoClient("mongodb://localhost:27017/library", { useNewUrlParser: true });
-    mongoClient.connect(function (error) {
-        if (error) {
-            console.log("Error connecting to the database.");
-        } else {
-            console.log("DB connection established.");
-            DB = mongoClient.db("library");
-            DB.collection("books").insertMany(books, function (error, result) {
-                if (error) {
-                    console.log("Failed to Store Books in DataBase.")
-                    return;
-                }
-                console.log("Books inserted ..Books Size :" + books.length)
-            });
-        }
-    });
-}
+  })
 
-readFile("books.json", putDataIntoDb);
+  app.listen(3000);
