@@ -44,4 +44,24 @@ app.get("/books",function(request,response){
     });
 })
 
+// Search books 
+app.post("/search",function(request,response){
+    var selectedLanguage = request.body.language
+    console.log("Selected Language :"+selectedLanguage)
+    // DB.collection("books").find({language:selectedLanguage},function(error,data){
+    //     if(error){
+    //         console.log("Could not find the book");
+    //         return;
+    //     }
+    //     response.send(data);
+    // })
+    DB.collection("books").find({language:selectedLanguage}).toArray(function(error,result){
+        if(error){
+            console.log("Could not find the book");
+            return;
+        }
+        response.send(result)
+    })
+})
+
 app.listen(3000);

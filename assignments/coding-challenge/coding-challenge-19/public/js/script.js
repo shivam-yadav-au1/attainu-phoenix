@@ -1,6 +1,8 @@
 'use strict'
 
 var Books = [];
+var searchedBooks = [];
+var selectLanguage;
 
 
 var displayResult = function (booksResult) {
@@ -56,7 +58,7 @@ var searchBooks = function (books, language) {
 var populateSelect = function () {
     console.log("Select called")
 
-    var selectLanguage = document.getElementById("selectLanguage")
+    selectLanguage = document.getElementById("selectLanguage")
     var languageVisted = []
     for (var i = 0; i < Books.length; i++) {
 
@@ -72,6 +74,26 @@ var populateSelect = function () {
         selectLanguage.appendChild(option)
     }
 
+}
+
+var serverSideSearch = function (language) {
+    var data = {
+        language:language
+    }
+
+    var request = new XMLHttpRequest();
+    request.open("post", "/search");
+    request.setRequestHeader("content-type", "application/json");
+    request.send(JSON.stringify(data));
+    request.onreadystatechange = function () {
+        if (request.readyState == 4 && request.status == 200) {
+            var searchResult = request.responseText
+            searchedBooks = JSON.parse(searchResult)
+            displayResult(searchedBooks)
+            console.log("Response From server :" + searchedBooks)
+           
+        }
+    }
 }
 
 var loadContent = function () {
@@ -95,5 +117,5 @@ var loadContent = function () {
 var button = document.getElementById("search")
 button.addEventListener("click", function () {
     var language = document.getElementById("selectLanguage").value
-    searchBooks(Books,language)
+    serverSideSearch(language)
 })
