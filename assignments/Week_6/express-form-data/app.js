@@ -17,7 +17,7 @@ app.use(bodyParser.urlencoded({ extended: false  }));
 // Global PLAYERS  variable to handle data throughout app
 var PLAYERS = []
 
-app.get("/players", function (request, response) {
+app.get("/", function (request, response) {
     console.log("/player route executed...")
     var data = {
         players:PLAYERS,
@@ -40,6 +40,6 @@ app.post("/players",function(request,response){
     }
     
 
-    response.redirect("/players")
+    response.redirect("/")
 })
-app.listen(3000)
+app.listen(process.env.PORT || 3000)
