@@ -4,6 +4,7 @@
 
 var background = document.getElementById('body');
 background.style.backgroundColor = 'red';
+var interval;
 var changeColor = function () {
 
     if (background.style.backgroundColor == 'red') {
@@ -15,14 +16,16 @@ var changeColor = function () {
     }
 
 }
-setInterval(changeColor, 5000);
+interval = setInterval(changeColor, 5000);
 
 var goFast = document.getElementById('goFast');
 goFast.addEventListener("click", function () {
-    setInterval(changeColor, 2000);
+    clearInterval(interval)
+    interval = setInterval(changeColor, 2000);
 })
 
 var goSlow = document.getElementById('goSlow');
 goSlow.addEventListener("click", function () {
-    setInterval(changeColor, 6000);
+    clearInterval(interval)
+    interval=setInterval(changeColor, 6000);
 })
