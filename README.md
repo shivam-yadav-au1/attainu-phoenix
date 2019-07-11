@@ -2,7 +2,7 @@
 
 [Portfolio](https://shivamcs.github.io)
 
-[My Resume](resume/resume.pdf)
+[My Resume](resume/Resume.pdf)
 
 [Assignments](assignments/)
 
