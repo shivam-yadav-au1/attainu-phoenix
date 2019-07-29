@@ -1,23 +1,32 @@
 let fs = require('fs')
-let readline = require('readline');
 
-function searchFile(fileName, target) {
+
+function search(fileName, target) {
     
-    let fileStream = fs.createReadStream('file.txt')
-    let content = readline.createInterface({
-        input: fileStream,
-        crlfDelay: Infinity
-    })
-    let lineNumber = 0;
-    content.on('line', (line) => {
-        lineNumber = lineNumber + 1;
-       if(line.search(target) === 0){
-           console.log(lineNumber,line)
+   fs.readFile(fileName,"utf-8",(error,data)=>{
+       if(error){
+           console.log(error);
+           return ;
        }
-        
-    });
-   
- 
+       data = data.split("\n");
+       data.forEach((line,index)=>{
+            if(line.includes(target)){
+                console.log("Line ==>",index,target)
+            }
+       })
+   })
+    
 }
 
-searchFile("file.txt", "Apple")
+function main(){
+
+    if(process.argv.length !== 4){
+        console.log("I need a file name and string to search ");
+        return;
+    }
+    let fileName = process.argv[2];
+    let searchWord =  process.argv[3];
+    search(fileName,searchWord)
+}
+main();
+
