@@ -71,7 +71,19 @@ class LinkedList{
         console.log(values);
     }
 
-    delete() {}
+    delete(value) {
+
+        let currentNode = this.head;
+        let previous = this.head;
+        while(currentNode){
+            if(currentNode.value === value){
+                previous.next = currentNode.next;
+            }
+            previous = currentNode;
+            currentNode = currentNode.next;
+
+        }
+    }
 }
 
 let l = new LinkedList();
@@ -87,3 +99,6 @@ l.prepend("Cobol");
 
 console.log(l.search("Linux"))
 console.log(l.search("Go"))
+l.delete("Rust")
+l.delete("Javascript")
+l.print();
