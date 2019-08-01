@@ -1,6 +1,6 @@
 # Shivam Yadav
 
-[Portfolio](https://shivamcs.github.io)
+[Portfolio](https://shivam-yadav-au1.github.io/)
 
 [My Resume](resume/Resume.pdf)
 
