@@ -73,16 +73,29 @@ class LinkedList{
 
     delete(value) {
 
-        let currentNode = this.head;
-        let previous = this.head;
-        while(currentNode){
-            if(currentNode.value === value){
-                previous.next = currentNode.next;
-            }
-            previous = currentNode;
-            currentNode = currentNode.next;
-
+        if(!this.head){
+            return null;
         }
+
+        if(this.head === value){
+            this.head = this.head.next;
+            return;
+        }
+
+
+        let currentNode = this.head;
+        while(currentNode.next){
+            if(currentNode.next.value === value){
+                currentNode.next = currentNode.next.next;
+                break;
+            }
+            currentNode = currentNode.next;
+        }
+        
+        if(this.tail.value === value){
+            this.tail = currentNode;
+        }
+        
     }
 }
 
