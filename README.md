@@ -4,8 +4,6 @@
 
 [My Resume](resume/Resume.pdf)
 
-[Cover Letter](cover-letter/Cover-Letter-for-Software-Engineer-Fresher.pdf)
-
 [Assignments](assignments/)
 
 [Coding Challenges](coding-challenges/)
