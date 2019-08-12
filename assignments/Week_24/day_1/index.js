@@ -1,66 +1,73 @@
 const fs = require('fs');
 
-function randomArray(max){
-    let arr = [];
-    for(var i=0;i<= max;i++){
-        arr.push(Math.floor(Math.random()*10));
-    }
-    return arr;
+function readFile(fileName, callBack) {
+    let dataArray = [];
+    let csvData = {};
+    fs.readFile(fileName, "utf-8", (error, data) => {
+        if (error) {
+            console.log(error);
+            return;
+        }
+        data = data.split("\n");
+        data.forEach((line, index) => {
+            var words = line.split(",");
+            csvData = {
+                state: words[0],
+                percentage: words[1]
+            }
+            dataArray.push(csvData);
+        })
+        callBack(dataArray);
+    });
 }
 
-function readFile(fileName,callBack){
-    fs.readFile(fileName,"utf-8",callBack);
-}
-
-function mergeArrays(left,right){
+function mergeArrays(left, right) {
     let merged = [];
-    console.log("line 17",left)
-    while(left.length && right.length){
+
+    while (left.length && right.length) {
         let smallest;
-        if(left[0] < right[0]){
+        if (left[0].percentage < right[0].percentage) {
             smallest = left.shift();
-        }else{
+        } else {
             smallest = right.shift();
         }
         merged.push(smallest);
     }
 
-    if(left.length){
+    if (left.length) {
         merged = merged.concat(left);
     }
-    if(right.length){
+    if (right.length) {
         merged = merged.concat(right);
     }
+
     return merged;
 }
 
-function mergeSort(err,data){
-    if(err){
+function mergeSort(err, data) {
+    if (err) {
         console.log(err)
         return;
     }
-    let csv = data.trim().split("\n");
-    // console.log(csv.length)
 
-    if(csv.length === 1){
-        return csv;
+
+    if (data.length === 1) {
+        return data;
     }
-    let middle = Math.floor(csv.length/2);
-    let left = csv.slice(0,middle);
-    let right = csv.slice(middle,csv.length);
-    // console.log(" left ",left,"right",right)
+    let middle = Math.floor(data.length / 2);
+    let left = data.slice(0, middle);
+    let right = data.slice(middle, data.length);
+
     let leftSortedArray = mergeSort(left);
     let rightSortedArray = mergeSort(right);
 
-    // console.log(leftSortedArray,rightSortedArray)
-    return mergeArrays(leftSortedArray,rightSortedArray);
+    return mergeArrays(leftSortedArray, rightSortedArray);
 }
 
-// let myArray = randomArray(10)
-// console.log(myArray)
-// console.log(mergeSort(myArray));
-function main(){
-    readFile("computers-datafile.csv",mergeSort);
+
+function main() {
+    readFile("computers-datafile.csv", mergeSort);
+    //    console.log("line 82",sortedData)
 }
 
 main();
