@@ -1,37 +1,29 @@
 'use strict'
 
-const isOdd = (number)=>{
-    if(number % 2 === 0){
-        return false;
-    }
-    else{
-        return true;
-    }
-}
 
-const isEven = (number)=>{
-    if(number % 2 === 0){
-        return true;
-    }else{
-       return  false;
-    }
+function generateSequence(n){
+     let length = 1;
+     while(n > 1){
+         if(n % 2 === 0){
+             n /= 2;
+         }else {
+             n = (3 * n) +1;
+         }
+         length++;
+     }
+     return length;
 }
-
 
 function main(){
-    var numberSequence = [];
-    var nextNumber = 1;
-    numberSequence.push(1);
-    for(var num=1;num<1000000;num++){
-        
-        if(isOdd(nextNumber)){
-            nextNumber = 3 * nextNumber +1;    
-      
-        }else{
-            nextNumber = Math.floor(nextNumber / 2);
-          
+    let largestSequence  = -1,
+        startingNumber = 2;
+    for(var i =2 ;i<=1000000;i++){
+        let result = generateSequence(i);
+        if( result > largestSequence){
+            largestSequence = result;
+            startingNumber = i;
         }
-        console.log(nextNumber);
     }
+    console.log(`${startingNumber} produces largest sequence of ${largestSequence}`)
 }
 main();
