@@ -29,8 +29,8 @@ return outPut;
 function main(){
 	let a = [4,8,56,23,9,66];
 	let b = [6,2,0,1,13,4];
-	let result = mergeArray(a,b);
-	console.log(result)
+	let outPut = mergeArray(a,b);
+	console.log(outPut);
 }
 
 main();
