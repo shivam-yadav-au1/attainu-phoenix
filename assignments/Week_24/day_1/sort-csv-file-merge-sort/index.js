@@ -18,7 +18,8 @@ function readFile(fileName, callBack) {
             }
             dataArray.push(csvData);
           })
-          callBack(dataArray);
+          let sortedData = callBack(dataArray);
+          console.log(sortedData);
     });
    
 }
@@ -66,9 +67,7 @@ function mergeSort(data) {
 
 
 function main() {
-    let sortedArray = readFile("computers-datafile.csv", mergeSort);
-    console.log(sortedArray)
-   
+    readFile("computers-datafile.csv", mergeSort);
 }
 
 main();
