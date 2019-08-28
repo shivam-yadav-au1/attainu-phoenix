@@ -1,28 +1,24 @@
-// ABC
+function generate(str,k=str.length){
 
-function permute(str,startIndex,endIndex){
+	// End Case for the recursion
+	if(k === 1){return console.log(str.join(""))};
 
-	for(var i=startIndex;i<=str.length;i++){
-
-		str = swap(str,startIndex,i);
-		permute(str,startIndex+1,endIndex)
+	//First recursive call
+	generate(str,k-1);
+	// Now the loop for iterating through  each
+	//element and do the swapping 
+	//Also ,at each iteration,we have to call
+	// the generate function again.
+	for(let i=0;i<k-1;i++){
+		//Do the swap of characters
+		//based on they are odd or even 
+		if(i % 2 === 0){
+			[str[i],str[k-1]] = [str[k-1],str[i]];
+		}else{
+			[str[0],str[k-1]] = [str[k-1],str[0]];
+		}
+		generate(str,k-1);
 	}
-	
 }
 
-function swap(str,a,b){
-
-	let temp;
-	let charArray = Array.from(str);
-	temp = charArray[a];
-	charArray[a] = charArray[b];
-	charArray[b] = temp;
-	return charArray.toString();
-}
-
-function main(){
-	//permutation("ABCD")
-	let res = swap("ABC",1,2);
-	console.log(res);
-}
-main();
+generate("ABC".split(""));
